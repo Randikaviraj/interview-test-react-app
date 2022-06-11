@@ -10,8 +10,8 @@ export default class User extends Component {
     current_page_no: 1,
   };
 
-  fetchUserDate = async () => {
-    fetch(this.props.user_page_url)
+  fetchUserDate = async (page_number=1) => {
+    fetch(`${this.props.user_page_url}/?page=${page_number}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data.data);
@@ -29,7 +29,8 @@ export default class User extends Component {
 
   pagingHandler = (page_no) => {
     if (!(page_no < 1 || page_no > this.state.page_numbers)) {
-      this.setState({ current_page_no: page_no });
+      this.fetchUserDate(page_no)
+      // this.setState({ current_page_no: page_no });
     }
   };
 
